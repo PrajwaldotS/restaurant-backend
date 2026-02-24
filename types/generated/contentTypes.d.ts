@@ -518,7 +518,7 @@ export interface ApiOrderOrder extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     status_food: Schema.Attribute.Enumeration<
-      ['pending', 'cooking', 'ready', 'served']
+      ['pending', 'cooking', 'ready', 'picked', 'served']
     >;
     TableNumber: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
