@@ -24,17 +24,23 @@
         "served"
       ]
     },
-    "items": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::menu.menu",
-      "mappedBy": "order"
-    },
     "waiter": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::menu.menu",
       "inversedBy": "orders"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::menu.menu",
+      "mappedBy": "order"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::payment.payment",
+      "mappedBy": "order"
     }
   }
 }
