@@ -1,7 +1,5 @@
-/**
- * order controller
- */
+'use strict';
 
-import { factories } from '@strapi/strapi';
+const { createCoreController } = require('@strapi/strapi').factories;
 
-export default factories.createCoreController('api::order.order');
+module.exports = createCoreController('api::order.order');

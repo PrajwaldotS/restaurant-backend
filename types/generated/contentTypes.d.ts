@@ -480,17 +480,18 @@ export interface ApiMenuMenu extends Struct.CollectionTypeSchema {
   attributes: {
     Category: Schema.Attribute.Enumeration<
       ['Starter ', 'main_course', 'dessert']
-    >;
+    > &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::menu.menu'> &
       Schema.Attribute.Private;
-    Name: Schema.Attribute.String;
+    Name: Schema.Attribute.String & Schema.Attribute.Required;
     order: Schema.Attribute.Relation<'manyToMany', 'api::order.order'>;
     orders: Schema.Attribute.Relation<'oneToMany', 'api::order.order'>;
-    Price: Schema.Attribute.Integer;
+    Price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -558,6 +559,41 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.DefaultTo<'pending'>;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiResturantSettingResturantSetting
+  extends Struct.SingleTypeSchema {
+  collectionName: 'resturant_settings';
+  info: {
+    displayName: 'resturant-setting';
+    pluralName: 'resturant-settings';
+    singularName: 'resturant-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.Enumeration<['INR', 'USD', 'EUR']>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::resturant-setting.resturant-setting'
+    > &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    phone_no: Schema.Attribute.BigInteger;
+    publishedAt: Schema.Attribute.DateTime;
+    restaurant_address: Schema.Attribute.Text;
+    restaurant_name: Schema.Attribute.String;
+    service_charge_percentage: Schema.Attribute.Decimal;
+    tax_percentage: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1079,6 +1115,7 @@ declare module '@strapi/strapi' {
       'api::menu.menu': ApiMenuMenu;
       'api::order.order': ApiOrderOrder;
       'api::payment.payment': ApiPaymentPayment;
+      'api::resturant-setting.resturant-setting': ApiResturantSettingResturantSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

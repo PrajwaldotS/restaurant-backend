@@ -1,20 +1,23 @@
-// import type { Core } from '@strapi/strapi';
+import { Server } from "socket.io";
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register() {},
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  bootstrap({ strapi }: { strapi: any }) {
+    const io = new Server(strapi.server.httpServer, {
+      cors: {
+        origin: "*",
+      },
+    });
+
+    strapi.io = io;
+
+    io.on("connection", (socket) => {
+      console.log("User connected:", socket.id);
+
+      socket.on("disconnect", () => {
+        console.log("User disconnected:", socket.id);
+      });
+    });
+  },
 };

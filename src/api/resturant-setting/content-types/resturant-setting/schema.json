@@ -1,0 +1,48 @@
+{
+  "kind": "singleType",
+  "collectionName": "resturant_settings",
+  "info": {
+    "singularName": "resturant-setting",
+    "pluralName": "resturant-settings",
+    "displayName": "resturant-setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "restaurant_name": {
+      "type": "string"
+    },
+    "restaurant_address": {
+      "type": "text"
+    },
+    "phone_no": {
+      "type": "biginteger"
+    },
+    "currency": {
+      "type": "enumeration",
+      "enum": [
+        "INR",
+        "USD",
+        "EUR"
+      ]
+    },
+    "tax_percentage": {
+      "type": "decimal"
+    },
+    "service_charge_percentage": {
+      "type": "decimal"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
